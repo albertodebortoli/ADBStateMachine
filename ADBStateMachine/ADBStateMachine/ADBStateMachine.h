@@ -13,7 +13,7 @@
 
 @property (nonatomic, copy, readonly) NSString *currentState;
 
-- (instancetype)initWithInitialState:(NSString *)state;
+- (instancetype)initWithInitialState:(NSString *)state queue:(dispatch_queue_t)queue;
 
 - (void)addTransition:(ADBStateMachineTransition *)transition;
 
