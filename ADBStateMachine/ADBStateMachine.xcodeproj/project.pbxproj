@@ -19,6 +19,8 @@
 		D394E935185646450096A5BF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D394E91D185646450096A5BF /* UIKit.framework */; };
 		D394E93D185646450096A5BF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D394E93B185646450096A5BF /* InfoPlist.strings */; };
 		D394E93F185646450096A5BF /* ADBStateMachineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D394E93E185646450096A5BF /* ADBStateMachineTests.m */; };
+		D394E94A185646790096A5BF /* ADBStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = D394E949185646790096A5BF /* ADBStateMachine.m */; };
+		D394E94D1856495F0096A5BF /* ADBStateMachineTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = D394E94C1856495F0096A5BF /* ADBStateMachineTransition.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,10 @@
 		D394E93A185646450096A5BF /* ADBStateMachineTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ADBStateMachineTests-Info.plist"; sourceTree = "<group>"; };
 		D394E93C185646450096A5BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D394E93E185646450096A5BF /* ADBStateMachineTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADBStateMachineTests.m; sourceTree = "<group>"; };
+		D394E948185646790096A5BF /* ADBStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBStateMachine.h; sourceTree = "<group>"; };
+		D394E949185646790096A5BF /* ADBStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBStateMachine.m; sourceTree = "<group>"; };
+		D394E94B1856495F0096A5BF /* ADBStateMachineTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBStateMachineTransition.h; sourceTree = "<group>"; };
+		D394E94C1856495F0096A5BF /* ADBStateMachineTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBStateMachineTransition.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +117,10 @@
 				D394E929185646450096A5BF /* ADBAppDelegate.m */,
 				D394E92B185646450096A5BF /* Images.xcassets */,
 				D394E920185646450096A5BF /* Supporting Files */,
+				D394E948185646790096A5BF /* ADBStateMachine.h */,
+				D394E949185646790096A5BF /* ADBStateMachine.m */,
+				D394E94B1856495F0096A5BF /* ADBStateMachineTransition.h */,
+				D394E94C1856495F0096A5BF /* ADBStateMachineTransition.m */,
 			);
 			path = ADBStateMachine;
 			sourceTree = "<group>";
@@ -240,7 +250,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D394E94A185646790096A5BF /* ADBStateMachine.m in Sources */,
 				D394E92A185646450096A5BF /* ADBAppDelegate.m in Sources */,
+				D394E94D1856495F0096A5BF /* ADBStateMachineTransition.m in Sources */,
 				D394E926185646450096A5BF /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
