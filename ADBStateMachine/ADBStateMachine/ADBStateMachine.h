@@ -16,7 +16,7 @@
 - (instancetype)initWithInitialState:(NSString *)state queue:(dispatch_queue_t)queue;
 
 - (void)addTransition:(ADBStateMachineTransition *)transition;
-
 - (void)processEvent:(NSString *)event;
+- (void)processEvent:(NSString *)event callback:(dispatch_block_t)callback;
 
 @end

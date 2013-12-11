@@ -53,6 +53,11 @@
 
 - (void)processEvent:(NSString *)event
 {
+    [self processEvent:event callback:nil];
+}
+
+- (void)processEvent:(NSString *)event callback:(dispatch_block_t)callback
+{
     NSSet *transitions = self.transitionsByEvent[event];
     
     for (ADBStateMachineTransition *transition in transitions) {
@@ -65,6 +70,9 @@
                 NSLog(@"Processed state changed from state '%@' to state '%@'", self.currentState, transition.toState);
                 [transition processPostBlock];
                 NSLog(@"Processed post condition for event '%@' from state '%@' to state '%@'", event, transition.fromState, transition.toState);
+                if (callback) {
+                    callback();
+                }
             });
         }
     }
