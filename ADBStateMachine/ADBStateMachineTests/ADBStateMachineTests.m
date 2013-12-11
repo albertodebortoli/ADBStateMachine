@@ -2,33 +2,77 @@
 //  ADBStateMachineTests.m
 //  ADBStateMachineTests
 //
-//  Created by Alberto De Bortoli on 09/12/2013.
+//  Created by Alberto De Bortoli on 11/12/2013.
 //  Copyright (c) 2013 Alberto De Bortoli. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+#import <Kiwi/Kiwi.h>
 
-@interface ADBStateMachineTests : XCTestCase
+#import "ADBStateMachine.h"
 
-@end
+SPEC_BEGIN(ADBStateMachineSpec)
 
-@implementation ADBStateMachineTests
+describe(@"The state machine", ^{
 
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
+    NSString *initialState = @"Idle";
+    __block ADBStateMachine *stateMachine = nil;
+    __block BOOL preCondition;
+    __block BOOL postCondition;
+    
+    beforeEach(^{
+        stateMachine = [[ADBStateMachine alloc] initWithInitialState:initialState queue:nil];
+        
+        ADBStateMachineTransition *t1 = [ADBStateMachineTransition transitionWithEvent:@"start"
+                                                                             fromState:@"Idle"
+                                                                               toState:@"Started"
+                                                                              preBlock:^{
+                                                                                  preCondition = YES;
+                                                                              } postBlock:^{
+                                                                                  postCondition = YES;
+                                                                              }];
+        
+        [stateMachine addTransition:t1];
+        preCondition = NO;
+        postCondition = NO;
+    });
+    
+    afterEach(^{
+        stateMachine = nil;
+        preCondition = NO;
+        postCondition = NO;
+    });
+    
+    context(@"when created with initial state", ^{
+        it(@"returns a valid instance with the given state", ^{
+            [[stateMachine.currentState should] equal:initialState];
+        });
+    });
+    
+    context(@"when sent an unknown or a not allowed event", ^{
+        it(@"the state doesn't change", ^{
+            [stateMachine processEvent:@"run"];
+            [[expectFutureValue(stateMachine.currentState) shouldEventually] equal:initialState];
+        });
+    });
+    
+    context(@"when sent an allowed event", ^{
+        it(@"the preblock is executer", ^{
+            [stateMachine processEvent:@"start"];
+            [[expectFutureValue(@(preCondition)) shouldEventually] equal:@YES];
+        });
 
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
+        it(@"the state changes", ^{
+            [stateMachine processEvent:@"start"];
+            [[expectFutureValue(stateMachine.currentState) shouldEventually] equal:@"Started"];
+        });
+        
+    
+        it(@"the postblock is executer", ^{
+            [stateMachine processEvent:@"start"];
+            [[expectFutureValue(@(postCondition)) shouldEventually] equal:@YES];
+        });
+    });
+    
+});
 
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
-}
-
-@end
+SPEC_END

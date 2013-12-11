@@ -24,29 +24,29 @@
     
     ADBStateMachineTransition *t1 = [[ADBStateMachineTransition alloc] initWithEvent:@"e1"
                                                                            fromState:@"Idle"
-                                                                             toState:@"Start"
+                                                                             toState:@"Started"
                                                                             preBlock:^{
-                                                                                NSLog(@"Gonna move from Idle to Start!");
+                                                                                NSLog(@"Gonna move from Idle to Started!");
                                                                             } postBlock:^{
-                                                                                NSLog(@"Just moved from Idle to Start!");
+                                                                                NSLog(@"Just moved from Idle to Started!");
                                                                             }];
 
     ADBStateMachineTransition *t2 = [[ADBStateMachineTransition alloc] initWithEvent:@"e2"
-                                                                           fromState:@"Start"
+                                                                           fromState:@"Started"
                                                                              toState:@"Idle"
                                                                             preBlock:^{
-                                                                                NSLog(@"Gonna move from Start to Idle!");
+                                                                                NSLog(@"Gonna move from Started to Idle!");
                                                                             } postBlock:^{
-                                                                                NSLog(@"Just moved from Start to Idle!");
+                                                                                NSLog(@"Just moved from Started to Idle!");
                                                                             }];
 
     ADBStateMachineTransition *t3 = [[ADBStateMachineTransition alloc] initWithEvent:@"e3"
-                                                                           fromState:@"Start"
+                                                                           fromState:@"Started"
                                                                              toState:@"Running"
                                                                             preBlock:^{
-                                                                                NSLog(@"Gonna move from Start to Running!");
+                                                                                NSLog(@"Gonna move from Started to Running!");
                                                                             } postBlock:^{
-                                                                                NSLog(@"Just moved from Start to Running!");
+                                                                                NSLog(@"Just moved from Started to Running!");
                                                                             }];
 
     ADBStateMachineTransition *t4 = [[ADBStateMachineTransition alloc] initWithEvent:@"e2"
@@ -67,10 +67,10 @@
     [stateMachine processEvent:@"e2"];
     [stateMachine processEvent:@"e1"];
     [stateMachine processEvent:@"e2"];
-    [stateMachine processEvent:@"e1"];
-    [stateMachine processEvent:@"e3"];
-    [stateMachine processEvent:@"e1"];
-    [stateMachine processEvent:@"e2"];
+    [stateMachine processEvent:@"e1" callback:nil];
+    [stateMachine processEvent:@"e3" callback:nil];
+    [stateMachine processEvent:@"e1" callback:nil];
+    [stateMachine processEvent:@"e2" callback:nil];
     
     return YES;
 }
