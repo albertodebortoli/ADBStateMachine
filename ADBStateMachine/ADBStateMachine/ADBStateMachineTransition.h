@@ -14,6 +14,12 @@
 @property (nonatomic, copy, readonly) NSString *toState;
 @property (nonatomic, copy, readonly) NSString *event;
 
++ (instancetype)transitionWithEvent:(NSString *)event
+                          fromState:(NSString *)fromState
+                            toState:(NSString *)toState
+                           preBlock:(dispatch_block_t)preBlock
+                          postBlock:(dispatch_block_t)postBlock;
+
 - (instancetype)initWithEvent:(NSString *)event
                     fromState:(NSString *)fromState
                       toState:(NSString *)toState

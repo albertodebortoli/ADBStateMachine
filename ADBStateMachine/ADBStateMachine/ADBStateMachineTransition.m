@@ -20,6 +20,19 @@
 
 @implementation ADBStateMachineTransition
 
++ (instancetype)transitionWithEvent:(NSString *)event
+                          fromState:(NSString *)fromState
+                            toState:(NSString *)toState
+                           preBlock:(dispatch_block_t)preBlock
+                          postBlock:(dispatch_block_t)postBlock
+{
+    return [[[self class] alloc] initWithEvent:event
+                                     fromState:fromState
+                                       toState:toState
+                                      preBlock:preBlock
+                                     postBlock:postBlock];
+}
+
 - (instancetype)initWithEvent:(NSString *)event
                     fromState:(NSString *)fromState
                       toState:(NSString *)toState
