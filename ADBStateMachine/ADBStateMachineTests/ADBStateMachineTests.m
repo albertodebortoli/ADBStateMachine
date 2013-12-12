@@ -56,7 +56,7 @@ describe(@"The state machine", ^{
     });
     
     context(@"when sent an allowed event", ^{
-        it(@"the preblock is executer", ^{
+        it(@"the preblock is executed", ^{
             [stateMachine processEvent:@"start"];
             [[expectFutureValue(@(preCondition)) shouldEventually] equal:@YES];
         });
@@ -67,7 +67,7 @@ describe(@"The state machine", ^{
         });
         
     
-        it(@"the postblock is executer", ^{
+        it(@"the postblock is executed", ^{
             [stateMachine processEvent:@"start"];
             [[expectFutureValue(@(postCondition)) shouldEventually] equal:@YES];
         });
