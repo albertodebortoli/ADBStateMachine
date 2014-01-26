@@ -16,11 +16,16 @@ describe(@"The state machine", ^{
 
     NSString *initialState = @"Idle";
     __block ADBStateMachine *stateMachine = nil;
+    __block ADBStateMachine *stateMachineWithCallBackQueue = nil;
+    __block dispatch_queue_t callbackQueue = nil;
     __block BOOL preCondition;
     __block BOOL postCondition;
     
     beforeEach(^{
-        stateMachine = [[ADBStateMachine alloc] initWithInitialState:initialState queue:nil];
+        stateMachine = [[ADBStateMachine alloc] initWithInitialState:initialState callbackQueue:nil];
+        
+        callbackQueue = dispatch_queue_create("com.albertodebortoli.statemachine.queue.callback", DISPATCH_QUEUE_SERIAL);
+        stateMachineWithCallBackQueue = [[ADBStateMachine alloc] initWithInitialState:initialState callbackQueue:callbackQueue];
         
         ADBStateMachineTransition *t1 = [ADBStateMachineTransition transitionWithEvent:@"start"
                                                                              fromState:@"Idle"
@@ -30,6 +35,24 @@ describe(@"The state machine", ^{
                                                                               } postBlock:^{
                                                                                   postCondition = YES;
                                                                               }];
+        ADBStateMachineTransition *t2 = [ADBStateMachineTransition transitionWithEvent:@"stop"
+                                                                             fromState:@"Started"
+                                                                               toState:@"Idle"
+                                                                              preBlock:^{
+                                                                                  preCondition = YES;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                                                                                  [[dispatch_get_current_queue() should] equal:callbackQueue];
+#pragma clang diagnostic pop
+                                                                              }
+                                                                             postBlock:^{
+                                                                                 postCondition = YES;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                                                                                 [[dispatch_get_current_queue() should] equal:callbackQueue];
+#pragma clang diagnostic pop
+                                                                             }];
+        [stateMachineWithCallBackQueue addTransition:t2];
         
         [stateMachine addTransition:t1];
         preCondition = NO;
@@ -38,8 +61,10 @@ describe(@"The state machine", ^{
     
     afterEach(^{
         stateMachine = nil;
+        stateMachineWithCallBackQueue = nil;
         preCondition = NO;
         postCondition = NO;
+        callbackQueue = nil;
     });
     
     context(@"when created with initial state", ^{
@@ -69,6 +94,22 @@ describe(@"The state machine", ^{
     
         it(@"the postblock is executed", ^{
             [stateMachine processEvent:@"start"];
+            [[expectFutureValue(@(postCondition)) shouldEventually] equal:@YES];
+        });
+    });
+    
+    context(@"when created with callback queue", ^{
+        it(@"the preblock is executed in the callback queue", ^{
+            [stateMachine processEvent:@"start"];
+            [stateMachine processEvent:@"stop"];
+            [[expectFutureValue(@(preCondition)) shouldEventually] equal:@YES];
+        });
+    });
+    
+    context(@"when created with callback queue", ^{
+        it(@"the postblock is executed in the callback queue", ^{
+            [stateMachine processEvent:@"start"];
+            [stateMachine processEvent:@"stop"];
             [[expectFutureValue(@(postCondition)) shouldEventually] equal:@YES];
         });
     });

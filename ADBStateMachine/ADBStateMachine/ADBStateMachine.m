@@ -10,7 +10,7 @@
 
 @interface ADBStateMachine ()
 
-@property (nonatomic, copy) NSString *currentState;
+@property (atomic, copy) NSString *currentState;
 @property (nonatomic, strong) NSMutableSet *allowedStates;
 @property (nonatomic, strong) NSMutableSet *allowedEvents;
 @property (nonatomic, strong) NSMutableDictionary *transitionsByEvent;
@@ -20,9 +20,11 @@
 @implementation ADBStateMachine
 {
     dispatch_queue_t _lockQueue;
+    dispatch_queue_t _workingQueue;
+    dispatch_queue_t _callbackQueue;
 }
 
-- (instancetype)initWithInitialState:(NSString *)state queue:(dispatch_queue_t)queue
+- (instancetype)initWithInitialState:(NSString *)state callbackQueue:(dispatch_queue_t)queue
 {
     self = [super init];
     if (self) {
@@ -30,7 +32,9 @@
         _allowedStates = [NSMutableSet set];
         _allowedEvents = [NSMutableSet set];
         _transitionsByEvent = [NSMutableDictionary dictionary];
-        _lockQueue = queue ? queue : dispatch_get_main_queue();
+        _lockQueue = dispatch_queue_create("com.albertodebortoli.statemachine.queue.lock", DISPATCH_QUEUE_SERIAL);
+        _workingQueue = dispatch_queue_create("com.albertodebortoli.statemachine.queue.working", DISPATCH_QUEUE_SERIAL);
+        _callbackQueue = queue ? : dispatch_get_main_queue();
     }
     
     return self;
@@ -38,17 +42,19 @@
 
 - (void)addTransition:(ADBStateMachineTransition *)transition
 {
-    [self.allowedEvents addObject:transition.event];
-    [self.allowedStates addObject:transition.fromState];
-    [self.allowedStates addObject:transition.toState];
-    
-    NSMutableSet *transistionsByEvent = self.transitionsByEvent[transition.event];
-    if (!transistionsByEvent) {
-        transistionsByEvent = [NSMutableSet set];
-    }
-    // check if there is already a transition from the given fromState using the given event
-    [transistionsByEvent addObject:transition];
-    self.transitionsByEvent[transition.event] = transistionsByEvent;
+    dispatch_sync(_lockQueue, ^{
+        [self.allowedEvents addObject:transition.event];
+        [self.allowedStates addObject:transition.fromState];
+        [self.allowedStates addObject:transition.toState];
+        
+        NSMutableSet *transistionsByEvent = self.transitionsByEvent[transition.event];
+        if (!transistionsByEvent) {
+            transistionsByEvent = [NSMutableSet set];
+        }
+        // check if there is already a transition from the given fromState using the given event
+        [transistionsByEvent addObject:transition];
+        self.transitionsByEvent[transition.event] = transistionsByEvent;
+    });
 }
 
 - (void)processEvent:(NSString *)event
@@ -58,24 +64,40 @@
 
 - (void)processEvent:(NSString *)event callback:(dispatch_block_t)callback
 {
-    NSSet *transitions = self.transitionsByEvent[event];
+    __block NSSet *transitions = nil;
+    dispatch_sync(_lockQueue, ^{
+        transitions = [self.transitionsByEvent[event] copy];
+    });
     
-    for (ADBStateMachineTransition *transition in transitions) {
-        if ([transition.fromState isEqualToString:self.currentState]) {
-            dispatch_async(_lockQueue, ^{
+    dispatch_async(_workingQueue, ^{
+        for (ADBStateMachineTransition *transition in transitions) {
+            if ([transition.fromState isEqualToString:self.currentState]) {
+
+                // pre condition
                 NSLog(@"Processing event '%@' from state '%@'", event, self.currentState);
-                [transition processPreBlock];
+                dispatch_async(_callbackQueue, ^{
+                    [transition processPreBlock];
+                });
                 NSLog(@"Processed pre condition for event '%@' from state '%@' to state '%@'", event, transition.fromState, transition.toState);
+                
+                // change state atomically
                 self.currentState = transition.toState;
+                
+                // post condition
                 NSLog(@"Processed state changed from state '%@' to state '%@'", self.currentState, transition.toState);
-                [transition processPostBlock];
+                dispatch_async(_callbackQueue, ^{
+                    [transition processPostBlock];
+                });
                 NSLog(@"Processed post condition for event '%@' from state '%@' to state '%@'", event, transition.fromState, transition.toState);
+                
                 if (callback) {
-                    callback();
+                    dispatch_async(_callbackQueue, ^{
+                        callback();
+                    });
                 }
-            });
+            }
         }
-    }
+    });
 }
 
 @end

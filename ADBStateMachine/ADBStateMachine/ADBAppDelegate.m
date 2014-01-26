@@ -20,7 +20,7 @@
     [self.window makeKeyAndVisible];
     
     
-    ADBStateMachine *stateMachine = [[ADBStateMachine alloc] initWithInitialState:@"Idle" queue:nil];
+    ADBStateMachine *stateMachine = [[ADBStateMachine alloc] initWithInitialState:@"Idle" callbackQueue:nil];
     
     ADBStateMachineTransition *t1 = [[ADBStateMachineTransition alloc] initWithEvent:@"e1"
                                                                            fromState:@"Idle"
