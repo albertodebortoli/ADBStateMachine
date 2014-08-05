@@ -104,9 +104,7 @@ describe(@"The state machine", ^{
             [stateMachine processEvent:@"stop"];
             [[expectFutureValue(@(preCondition)) shouldEventually] equal:@YES];
         });
-    });
-    
-    context(@"when created with callback queue", ^{
+
         it(@"the postblock is executed in the callback queue", ^{
             [stateMachine processEvent:@"start"];
             [stateMachine processEvent:@"stop"];

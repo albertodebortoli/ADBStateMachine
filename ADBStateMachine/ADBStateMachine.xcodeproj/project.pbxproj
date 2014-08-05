@@ -13,7 +13,6 @@
 		D34EE044185921D300A10186 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D394E91D185646450096A5BF /* UIKit.framework */; };
 		D34EE05A185921E200A10186 /* ADBStateMachineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D34EE055185921E200A10186 /* ADBStateMachineTests.m */; };
 		D34EE05B185921E200A10186 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D34EE057185921E200A10186 /* InfoPlist.strings */; };
-		D34EE05C1859222400A10186 /* ADBStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = D394E949185646790096A5BF /* ADBStateMachine.m */; };
 		D394E91A185646450096A5BF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D394E919185646450096A5BF /* Foundation.framework */; };
 		D394E91C185646450096A5BF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D394E91B185646450096A5BF /* CoreGraphics.framework */; };
 		D394E91E185646450096A5BF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D394E91D185646450096A5BF /* UIKit.framework */; };
@@ -21,8 +20,8 @@
 		D394E926185646450096A5BF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D394E925185646450096A5BF /* main.m */; };
 		D394E92A185646450096A5BF /* ADBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D394E929185646450096A5BF /* ADBAppDelegate.m */; };
 		D394E92C185646450096A5BF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D394E92B185646450096A5BF /* Images.xcassets */; };
-		D394E94A185646790096A5BF /* ADBStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = D394E949185646790096A5BF /* ADBStateMachine.m */; };
-		D394E94D1856495F0096A5BF /* ADBStateMachineTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = D394E94C1856495F0096A5BF /* ADBStateMachineTransition.m */; };
+		F0FAC5441991686500B2FBA7 /* ADBStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = F0FAC5411991686500B2FBA7 /* ADBStateMachine.m */; };
+		F0FAC5451991686500B2FBA7 /* ADBStateMachineTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F0FAC5431991686500B2FBA7 /* ADBStateMachineTransition.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,11 +54,14 @@
 		D394E929185646450096A5BF /* ADBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADBAppDelegate.m; sourceTree = "<group>"; };
 		D394E92B185646450096A5BF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D394E932185646450096A5BF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		D394E948185646790096A5BF /* ADBStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBStateMachine.h; sourceTree = "<group>"; };
-		D394E949185646790096A5BF /* ADBStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBStateMachine.m; sourceTree = "<group>"; };
-		D394E94B1856495F0096A5BF /* ADBStateMachineTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBStateMachineTransition.h; sourceTree = "<group>"; };
-		D394E94C1856495F0096A5BF /* ADBStateMachineTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBStateMachineTransition.m; sourceTree = "<group>"; };
 		E892CE03DB5147459216F02A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		F0FAC5401991686500B2FBA7 /* ADBStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBStateMachine.h; sourceTree = "<group>"; };
+		F0FAC5411991686500B2FBA7 /* ADBStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBStateMachine.m; sourceTree = "<group>"; };
+		F0FAC5421991686500B2FBA7 /* ADBStateMachineTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBStateMachineTransition.h; sourceTree = "<group>"; };
+		F0FAC5431991686500B2FBA7 /* ADBStateMachineTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBStateMachineTransition.m; sourceTree = "<group>"; };
+		F0FAC5461991689F00B2FBA7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		F0FAC548199168A300B2FBA7 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		F0FAC54A1991696D00B2FBA7 /* ADBStateMachine.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ADBStateMachine.podspec; path = ../ADBStateMachine.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,10 @@
 		D394E90D185646450096A5BF = {
 			isa = PBXGroup;
 			children = (
+				F0FAC54A1991696D00B2FBA7 /* ADBStateMachine.podspec */,
+				F0FAC548199168A300B2FBA7 /* LICENSE */,
+				F0FAC5461991689F00B2FBA7 /* README.md */,
+				F0FAC53F1991686500B2FBA7 /* Classes */,
 				D394E91F185646450096A5BF /* ADBStateMachine */,
 				D34EE045185921D300A10186 /* ADBStateMachineTests */,
 				D394E918185646450096A5BF /* Frameworks */,
@@ -147,10 +153,6 @@
 				D394E929185646450096A5BF /* ADBAppDelegate.m */,
 				D394E92B185646450096A5BF /* Images.xcassets */,
 				D394E920185646450096A5BF /* Supporting Files */,
-				D394E948185646790096A5BF /* ADBStateMachine.h */,
-				D394E949185646790096A5BF /* ADBStateMachine.m */,
-				D394E94B1856495F0096A5BF /* ADBStateMachineTransition.h */,
-				D394E94C1856495F0096A5BF /* ADBStateMachineTransition.m */,
 			);
 			path = ADBStateMachine;
 			sourceTree = "<group>";
@@ -164,6 +166,17 @@
 				D394E927185646450096A5BF /* ADBStateMachine-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F0FAC53F1991686500B2FBA7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F0FAC5401991686500B2FBA7 /* ADBStateMachine.h */,
+				F0FAC5411991686500B2FBA7 /* ADBStateMachine.m */,
+				F0FAC5421991686500B2FBA7 /* ADBStateMachineTransition.h */,
+				F0FAC5431991686500B2FBA7 /* ADBStateMachineTransition.m */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,7 +311,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D34EE05A185921E200A10186 /* ADBStateMachineTests.m in Sources */,
-				D34EE05C1859222400A10186 /* ADBStateMachine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,9 +318,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D394E94A185646790096A5BF /* ADBStateMachine.m in Sources */,
+				F0FAC5441991686500B2FBA7 /* ADBStateMachine.m in Sources */,
 				D394E92A185646450096A5BF /* ADBAppDelegate.m in Sources */,
-				D394E94D1856495F0096A5BF /* ADBStateMachineTransition.m in Sources */,
+				F0FAC5451991686500B2FBA7 /* ADBStateMachineTransition.m in Sources */,
 				D394E926185646450096A5BF /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,6 +509,7 @@
 				D34EE052185921D300A10186 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D394E911185646450096A5BF /* Build configuration list for PBXProject "ADBStateMachine" */ = {
 			isa = XCConfigurationList;

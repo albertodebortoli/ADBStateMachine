@@ -34,7 +34,7 @@
         _transitionsByEvent = [NSMutableDictionary dictionary];
         _lockQueue = dispatch_queue_create("com.albertodebortoli.statemachine.queue.lock", DISPATCH_QUEUE_SERIAL);
         _workingQueue = dispatch_queue_create("com.albertodebortoli.statemachine.queue.working", DISPATCH_QUEUE_SERIAL);
-        _callbackQueue = queue ? : dispatch_get_main_queue();
+        _callbackQueue = queue ?: dispatch_get_main_queue();
     }
     
     return self;
