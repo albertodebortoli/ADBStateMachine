@@ -26,11 +26,11 @@
                            preBlock:(dispatch_block_t)preBlock
                           postBlock:(dispatch_block_t)postBlock
 {
-    return [[[self class] alloc] initWithEvent:event
-                                     fromState:fromState
-                                       toState:toState
-                                      preBlock:preBlock
-                                     postBlock:postBlock];
+    return [[self alloc] initWithEvent:event
+                             fromState:fromState
+                               toState:toState
+                              preBlock:preBlock
+                             postBlock:postBlock];
 }
 
 - (instancetype)initWithEvent:(NSString *)event
@@ -41,11 +41,11 @@
 {
     self = [super init];
     if (self) {
-        _event = event;
-        _fromState = fromState;
-        _toState = toState;
-        _preBlock = preBlock;
-        _postBlock = postBlock;
+        _event = [event copy];
+        _fromState = [fromState copy];
+        _toState = [toState copy];
+        _preBlock = [preBlock copy];
+        _postBlock = [postBlock copy];
     }
     
     return self;
