@@ -28,7 +28,7 @@
 {
     self = [super init];
     if (self) {
-        _currentState = state;
+        _currentState = [state copy];
         _allowedStates = [NSMutableSet set];
         _allowedEvents = [NSMutableSet set];
         _transitionsByEvent = [NSMutableDictionary dictionary];
