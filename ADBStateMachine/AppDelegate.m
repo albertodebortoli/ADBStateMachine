@@ -1,16 +1,19 @@
 //
-//  ADBAppDelegate.m
+//  AppDelegate.m
 //  ADBStateMachine
 //
-//  Created by Alberto De Bortoli on 09/12/2013.
-//  Copyright (c) 2013 Alberto De Bortoli. All rights reserved.
+//  Created by Alberto DeBortoli on 02/07/2015.
+//  Copyright (c) 2015 Alberto De Bortoli. All rights reserved.
 //
 
-#import "ADBAppDelegate.h"
-
+#import "AppDelegate.h"
 #import "ADBStateMachine.h"
 
-@implementation ADBAppDelegate
+@interface AppDelegate ()
+
+@end
+
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -30,7 +33,7 @@
                                                                             } postBlock:^{
                                                                                 NSLog(@"Just moved from Idle to Started!");
                                                                             }];
-
+    
     ADBStateMachineTransition *t2 = [[ADBStateMachineTransition alloc] initWithEvent:@"e2"
                                                                            fromState:@"Started"
                                                                              toState:@"Idle"
@@ -39,7 +42,7 @@
                                                                             } postBlock:^{
                                                                                 NSLog(@"Just moved from Started to Idle!");
                                                                             }];
-
+    
     ADBStateMachineTransition *t3 = [[ADBStateMachineTransition alloc] initWithEvent:@"e3"
                                                                            fromState:@"Started"
                                                                              toState:@"Running"
@@ -48,7 +51,7 @@
                                                                             } postBlock:^{
                                                                                 NSLog(@"Just moved from Started to Running!");
                                                                             }];
-
+    
     ADBStateMachineTransition *t4 = [[ADBStateMachineTransition alloc] initWithEvent:@"e2"
                                                                            fromState:@"Running"
                                                                              toState:@"Idle"
